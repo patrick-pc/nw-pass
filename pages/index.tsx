@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { ConnectKitButton } from 'connectkit'
 
 const Home: NextPage = () => {
   return (
@@ -10,7 +11,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="flex items-center justify-center h-screen w-full">gm</div>
+      <div className="flex items-center justify-center h-screen w-full">
+        <ConnectKitButton />
+      </div>
     </div>
   )
 }
