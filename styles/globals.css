@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    @apply bg-zinc-950 text-white h-screen w-full;
+  }
+}
+
+@layer components {
+  .gradient-bg {
+    @apply absolute h-[900px] w-[1500px] bg-[url('/img/gradient-bg.png')] bg-center bg-no-repeat bg-contain opacity-40 z-10;
+  }
+
+  .hero {
+    @apply flex flex-col items-center justify-center text-center w-full pt-16 p-8 gap-8 z-20;
+  }
+}
