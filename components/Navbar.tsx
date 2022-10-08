@@ -1,10 +1,9 @@
-import type { NextPage } from 'next'
 import Head from 'next/head'
 import { ConnectKitButton } from 'connectkit'
 
-const Navbar: NextPage = () => {
+export default function Navbar() {
   return (
-    <header className="relative w-full z-50">
+    <header className="relative w-full z-30">
       <Head>
         <title>Buildspace Nigts & Weekends S1 Pass</title>
         <meta name="description" content="Buildspace Nigts & Weekends S1 Pass" />
@@ -35,5 +34,3 @@ const Navbar: NextPage = () => {
     </header>
   )
 }
-
-export default Navbar
