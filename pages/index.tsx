@@ -66,7 +66,7 @@ const Home: NextPage = () => {
     const payload = {
       contractAddress: CONTRACT_ADDRESS,
       tokenId: tokenId,
-      image: 'https://nwpass-vercel.app/img/moon.png',
+      image: 'https://nwpass.vercel.app/img/moon.png',
       chainId: 137,
       platform: platform,
       signature,
