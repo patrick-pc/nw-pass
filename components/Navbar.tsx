@@ -7,7 +7,7 @@ export default function Navbar() {
       <Head>
         <title>Buildspace Nigts & Weekends S1 Pass</title>
         <meta name="description" content="Buildspace Nigts & Weekends S1 Pass" />
-        <link rel="icon" href="/img/unicorn.png" />
+        <link rel="icon" href="/img/moon.png" />
       </Head>
 
       <div className="relative flex items-center justify-between lg:justify-around w-full px-4 py-8">
