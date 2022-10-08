@@ -3,20 +3,57 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case 'POST':
-      const { chainId, contractAddress, image, platform, signature, signatureMessage, tokenId } =
-        req.body
+      const {
+        chainId,
+        contractAddress,
+        image,
+        platform,
+        signature,
+        signatureMessage,
+        tokenId,
+        barcode,
+      } = req.body
 
       try {
         // Customize Pass
         let pass
         if (platform === 'apple') {
           pass = {
-            description: 'ETHPASS API DEMO',
+            labelColor: 'rgb(78,70,220)',
+            backgroundColor: 'rgb(255,255,255)',
+            foregroundColor: 'rgb(0,0,0)',
+            description: 'Buildspace Nights & Weekends S1 Pass',
             auxiliaryFields: [],
             backFields: [],
             headerFields: [],
-            primaryFields: [],
-            secondaryFields: [],
+            primaryFields: [
+              {
+                key: 'primary1',
+                label: 'Buildspace',
+                value: 'N&W S1 Pass',
+                textAlignment: 'PKTextAlignmentNatural',
+              },
+            ],
+            secondaryFields: [
+              {
+                key: 'secondary1',
+                label: 'CONTRACT ADDRESS',
+                value: `${contractAddress.slice(0, 6)}...${contractAddress.slice(-4)}`,
+                textAlignment: 'PKTextAlignmentLeft',
+              },
+              {
+                key: 'secondary2',
+                label: 'TOKEN ID',
+                value: tokenId,
+                textAlignment: 'PKTextAlignmentLeft',
+              },
+              {
+                key: 'secondary3',
+                label: 'NETWORK',
+                value: 'Polygon',
+                textAlignment: 'PKTextAlignmentLeft',
+              },
+            ],
           }
         } else {
           pass = {
@@ -30,10 +67,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           {
             method: 'POST',
             body: JSON.stringify({
-              barcode: {
-                message:
-                  'The contents of this message will be returned in the response payload after the pass has been scanned',
-              },
               chain: {
                 name: 'evm',
                 network: chainId,
@@ -47,6 +80,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
               platform,
               signature,
               signatureMessage,
+              barcode,
             }),
             headers: new Headers({
               'content-type': 'application/json',
@@ -61,11 +95,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           const json = await payload.json()
           return res.status(payload.status).send(json.message)
         }
-      } catch (err) {
-        if (err instanceof Error) {
-          return res.status(400).send(err.message)
-        }
-        return res.status(500).send('Something went wrong.')
+      } catch (error) {
+        return res.status(400).send(error.message)
       }
 
     default:
