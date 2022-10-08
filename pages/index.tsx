@@ -5,6 +5,7 @@ import { useDownloadModalContext } from '../contexts/downloadModal'
 import { ArrowRightIcon } from '@heroicons/react/24/solid'
 import Navbar from '../components/Navbar'
 import GeneratePassButton from '../components/GeneratePassButton'
+import FadeIn from 'react-fade-in'
 import toast from 'react-hot-toast'
 
 const CONTRACT_ADDRESS = '0x3cd266509d127d0eac42f4474f57d0526804b44e'
@@ -141,22 +142,26 @@ const Home: NextPage = () => {
 
   return (
     <div className="relative overflow-x-hidden flex flex-col items-center h-screen w-full gap-8">
-      <Navbar />
-      <div className="gradient-bg"></div>
-      <div className="hero">
-        <h1 className="text-6xl font-medium leading-tight">Buildspace Nights & Weekends S1 Pass</h1>
-        <p className="text-xl opacity-50 mb-8">
-          Get access to Founders, Inc. in San Francisco. Receive GTFOL notifications daily.
-        </p>
-        {renderButton()}
-      </div>
+      <FadeIn>
+        <Navbar />
+        <div className="gradient-bg"></div>
+        <div className="hero">
+          <h1 className="text-6xl font-medium leading-tight">
+            Buildspace Nights & Weekends S1 Pass
+          </h1>
+          <p className="text-xl opacity-50 mb-8">
+            Get access to Founders, Inc. in San Francisco. Receive GTFOL notifications daily.
+          </p>
+          {renderButton()}
+        </div>
 
-      <div className="flex flex-wrap justify-center gap-8 p-8 pb-24">
-        <div className="h-52 w-72 bg-[url('/img/nw1.jpeg')] bg-cover bg-center bg-no-repeat rounded-lg shadow-lg"></div>
-        <div className="h-52 w-72 bg-[url('/img/nw2.jpeg')] bg-cover bg-center bg-no-repeat rounded-lg shadow-lg"></div>
-        <div className="h-52 w-72 bg-[url('/img/nw3.jpeg')] bg-cover bg-center bg-no-repeat rounded-lg shadow-lg"></div>
-        <div className="h-52 w-72 bg-[url('/img/nw4.jpeg')] bg-cover bg-center bg-no-repeat rounded-lg shadow-lg"></div>
-      </div>
+        <div className="flex flex-wrap justify-center gap-8 p-8 pb-24">
+          <div className="h-52 w-72 bg-[url('/img/nw1.jpeg')] bg-cover bg-center bg-no-repeat rounded-lg shadow-lg"></div>
+          <div className="h-52 w-72 bg-[url('/img/nw2.jpeg')] bg-cover bg-center bg-no-repeat rounded-lg shadow-lg"></div>
+          <div className="h-52 w-72 bg-[url('/img/nw3.jpeg')] bg-cover bg-center bg-no-repeat rounded-lg shadow-lg"></div>
+          <div className="h-52 w-72 bg-[url('/img/nw4.jpeg')] bg-cover bg-center bg-no-repeat rounded-lg shadow-lg"></div>
+        </div>
+      </FadeIn>
     </div>
   )
 }
