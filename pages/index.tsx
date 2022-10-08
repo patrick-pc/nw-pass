@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import { useState, useEffect } from 'react'
 import { useAccount, useSigner } from 'wagmi'
 import { useDownloadModalContext } from '../contexts/downloadModal'
+import { ArrowRightIcon } from '@heroicons/react/24/solid'
 import Navbar from '../components/Navbar'
 import GeneratePassButton from '../components/GeneratePassButton'
 import toast from 'react-hot-toast'
@@ -29,7 +30,7 @@ const Home: NextPage = () => {
     const fetchURL = `${baseURL}?owner=${address}&contractAddresses%5B%5D=${CONTRACT_ADDRESS}`
     const { ownedNfts } = await fetch(fetchURL).then((nfts) => nfts.json())
 
-    if (ownedNfts) {
+    if (ownedNfts.length > 0) {
       ownedNfts.map((nft: { title: string; id: { tokenId: string } }) => {
         if (nft.title.includes('Nights & Weekends S1')) setTokenId(parseInt(nft.id.tokenId))
       })
@@ -113,6 +114,31 @@ const Home: NextPage = () => {
     }
   }
 
+  const renderButton = () => {
+    if (tokenId === -2) {
+      return (
+        <div className="flex flex-col items-center justify-center gap-4">
+          <p className="italic opacity-75">
+            Oops! Looks like you don't hold a Buildspace Nights & Weekends S1 NFT.
+          </p>
+
+          <div>
+            <a
+              className="flex items-center justify-center bg-gradient-to-r from-yellow-500 to-yellow-600 text-white rounded-lg text-lg gap-2 px-4 py-2 focus:outline-none hover:scale-105 transition duration-300 ease-in-out"
+              href="https://buildspace.so/nights-weekends"
+              target="_blank"
+            >
+              Apply for S2
+              <ArrowRightIcon className="h-4 w-4 stroke-white" />
+            </a>
+          </div>
+        </div>
+      )
+    } else {
+      return <GeneratePassButton generatePass={generatePass} disabled={disabled} />
+    }
+  }
+
   return (
     <div className="relative overflow-x-hidden flex flex-col items-center h-screen w-full gap-8">
       <Navbar />
@@ -122,8 +148,7 @@ const Home: NextPage = () => {
         <p className="text-xl opacity-50 mb-8">
           Get access to Founders, Inc. in San Francisco. Receive GTFOL notifications daily.
         </p>
-
-        <GeneratePassButton generatePass={generatePass} disabled={disabled} />
+        {renderButton()}
       </div>
 
       <div className="flex flex-wrap justify-center gap-8 p-8 pb-24">
